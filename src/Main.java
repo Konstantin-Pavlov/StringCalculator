@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        String s = "2+66+9*(5-9)";
+        String s = "2+66+9*(5-9*(5-4/(5+69)))";
 
         System.out.println(s.charAt(0));
 
@@ -26,6 +26,35 @@ public class Main {
         System.out.println("number of brackets: " + bracketCounter(s));
         System.out.println(isStringValid(s));
 
+        int n = bracketCounter(s);
+        String tempS = s;
+        //checkForInnerBrackets(tempS);
+
+        while (n-- > 0){
+
+            tempS = checkForInnerBrackets(tempS);
+            System.out.println(tempS);
+        }
+
+    }
+
+    public static int calculateGivenExpression (String s){
+        String t =  "";
+        for (int i = 0; i < s.length() ; i++) {
+            //code to separate numbers and operators goes here
+        }
+        return 0;
+    }
+
+    public static String checkForInnerBrackets(String s1){
+
+        int firstBracketIndex = s1.indexOf('(');
+        int lastBracketIndex = s1.lastIndexOf(')');
+        String currentBracket = s1.substring(firstBracketIndex+1, lastBracketIndex);
+        //System.out.println(currentBracket);
+        return currentBracket;
+
+
     }
 
     public static boolean isStringValid(String s) {
@@ -40,6 +69,9 @@ public class Main {
             if (i+1 != s.length()){
                 if (s.charAt(i) == '.' && s.charAt(i+1) == '.' )
                     return false;
+                if (s.charAt(i) == ')' && s.charAt(i+1) == '(' )
+                    return false;
+
             }
             if (!(Character.isDigit(s.charAt(i)) || isOp(s.charAt(i)) ||
                     s.charAt(i) == '(' || s.charAt(i) == ')' || s.charAt(i) == '.'))
@@ -68,7 +100,7 @@ public class Main {
     }
 
     /**
-     * Функция проверяет, является ли текущий символ оператором
+     * The function checks whether the current character is an operator.
      */
     private static boolean isOp(char c) {
         switch (c) {
@@ -83,7 +115,7 @@ public class Main {
     }
 
     /**
-     * Возвращает приоритет операции
+     * Returns the priority of the operation
      * @param op char
      * @return byte
      */
@@ -96,6 +128,6 @@ public class Main {
             case '%':
                 return 2;
         }
-        return 1; // Тут остается + и -
+        return 1; // Here is the + and -
     }
 }
