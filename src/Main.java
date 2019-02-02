@@ -2,12 +2,15 @@ public class Main {
     public static void main(String[] args) {
         String s = "2+66+9*(5-9*(5-4/(5+69)))";
 
-        System.out.println(s.charAt(0));
+        //System.out.println(s.charAt(0));
+
+        System.out.println(operatorsAmount("5+9/3-2"));
+        calculateGivenExpression("45+989/3-2");
 
         char temp = s.charAt(2);
         char temp1 = s.charAt(3);
 
-        System.out.println(temp + " " + temp1);
+        //System.out.println(temp + " " + temp1);
 
         String t =  "";
         t += temp;
@@ -18,32 +21,50 @@ public class Main {
 
 
         //System.out.println(Character.isDigit(temp));
-        System.out.println(t);
-        System.out.println(str);
+        //System.out.println(t);
+        //System.out.println(str);
 
         //System.out.println(s.contains("("));
 
-        System.out.println("number of brackets: " + bracketCounter(s));
-        System.out.println(isStringValid(s));
+        //System.out.println("number of brackets: " + bracketCounter(s));
+        //System.out.println(isStringValid(s));
 
         int n = bracketCounter(s);
         String tempS = s;
         //checkForInnerBrackets(tempS);
 
-        while (n-- > 0){
+//        while (n-- > 0){
+//
+//            tempS = checkForInnerBrackets(tempS);
+//            System.out.println(tempS);
+//        }
 
-            tempS = checkForInnerBrackets(tempS);
-            System.out.println(tempS);
+    }
+
+    //so far this method gives us the indexes of operators
+    public static void calculateGivenExpression (String s){
+        //code to separate numbers and operators goes here
+        String t =  "";
+        int[] operatorsIndexes = new int[operatorsAmount(s)];
+        for (int i = 0, j = 0; i < s.length() ; i++) {
+            if (isOp(s.charAt(i))){
+                operatorsIndexes[j] = i;
+                j++;
+            }
+        }
+        for (int i = 0; i < operatorsIndexes.length ; i++) {
+            System.out.print(operatorsIndexes[i] + " ");
         }
 
     }
 
-    public static int calculateGivenExpression (String s){
-        String t =  "";
+    public static int operatorsAmount (String s){
+        int n = 0;
         for (int i = 0; i < s.length() ; i++) {
-            //code to separate numbers and operators goes here
+           if (isOp(s.charAt(i)))
+               n++;
         }
-        return 0;
+        return n;
     }
 
     public static String checkForInnerBrackets(String s1){
